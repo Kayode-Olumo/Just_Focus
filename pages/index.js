@@ -4,10 +4,12 @@ import { Timer } from "../components/Timer";
 import { MediaNav } from "../components/MediaNav";
 import { InfoSection } from "../components/InfoSection";
 import { Alarm } from "../components/Alarm";
+import { SettingsModal } from "../components/SettingsModal";
 
 export default function Home() {
   const [POMODORO, SHORTBREAK, LONGBREAK] = [25, 5, 10];
 
+  const [openSetting, setOpenSetting] = useState(false);
   const [timeCounter,setTimeCounter] = useState(false);
   const [isTimeUp, setIsTimeUp] = useState(false);
 
@@ -19,7 +21,15 @@ export default function Home() {
   const [checkSecond, setCheckSecond] = useState(0)
 
   const alarmRef = useRef();
+  const pomodoroRef = useRef();
+  const shortBreakRef = useRef();
+  const longBreakRef = useRef();
 
+  const updateTimeDefaultValue = () => {
+	setPomodoro(pomodoroRef.current.value);
+	setShortBreak(shortBreakRef.current.value);
+	setLongBreak(longBreakRef.current.value);
+};
   
   const getTime = () => {
     const timeTab = {
@@ -114,13 +124,14 @@ const toggle = (index) => {
   };
 
   return (
-    <div className={`bg-gray-900 ${styles.minScreen} font-inter `}>
+    <div className={`bg-white-900 ${styles.minScreen} font-inter `}>
       <div className={`max-w-1xl ${styles.minScreen} mx-auto`}>
-        <NavBar />
-        <Timer tab={tab} toggle={toggle} getTime={getTime} second={second} timeCounter={timeCounter} startTimer={startTimer} muteAlarm={muteAlarm} isTimeUp={isTimeUp}/>
+        <NavBar setOpenSetting={setOpenSetting} />
+        <Timer tab={tab} toggle={toggle} getTime={getTime} second={second} timeCounter={timeCounter} startTimer={startTimer} muteAlarm={muteAlarm} isTimeUp={isTimeUp} reset={reset}/>
         <MediaNav />
         <InfoSection />
 		<Alarm alarmRef={alarmRef}/>
+		<SettingsModal pomodoroRef={pomodoroRef} shortBreakRef={shortBreakRef} longBreakRef={longBreakRef} openSetting={openSetting} setOpenSetting={setOpenSetting} updateTimeDefaultValue={updateTimeDefaultValue}/>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import {RiTodoLine} from 'react-icons/ri';
 
 export const MediaNav = () => {
     const style = {
-        textColor: 'text-white'
+        textColor: 'text-black'
     }
     return(
     <div>
