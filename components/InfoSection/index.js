@@ -22,7 +22,7 @@ export const InfoSection = () => {
     }
     console.log('test',open);
     return (
-        <div className='w-11/12 mx-auto mt-36 text-white p-5'> 
+        <div className='w-9/12 mx-auto mt-36 text-white p-5'> 
             <div>
                 <div className='flex items-center gap-1 cursor-pointer' onClick={HandleClick}>
                     {open ? (<FaChevronCircleDown className='text-md'/>) : (<FaChevronCircleUp className='text-md'/>)}

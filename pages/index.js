@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NavBar } from "../components/NavBar";
 import { Timer } from "../components/Timer";
 import { MediaNav } from "../components/MediaNav";
 import { InfoSection } from "../components/InfoSection";
+import { Alarm } from "../components/Alarm";
 
 export default function Home() {
-  const [pomodoro, setPomodoro] = useState(25);
-  const [shortBreak, setShortBreak] = useState(5);
-  const [longBreak, setLongBreak] = useState(10);
+  const [POMODORO, SHORTBREAK, LONGBREAK] = [25, 5, 10];
+
+  const [timeCounter,setTimeCounter] = useState(false);
+  const [isTimeUp, setIsTimeUp] = useState(false);
+
+  const [pomodoro, setPomodoro] = useState(POMODORO);
+  const [shortBreak, setShortBreak] = useState(SHORTBREAK);
+  const [longBreak, setLongBreak] = useState(LONGBREAK);
   const [second, setSecond] = useState(0);
   const [tab, setTab] = useState(0);
-  const [timeCounter,setTimeCounter] = useState(false);
+  const [checkSecond, setCheckSecond] = useState(0)
 
-  const toggle = (index) => {
-    setTab(index);
-  };
+  const alarmRef = useRef();
 
+  
   const getTime = () => {
     const timeTab = {
       0: pomodoro,
@@ -34,12 +39,37 @@ export default function Home() {
 	  return updateTab[tab];
   }
 
+const toggle = (index) => {
+	const isSecond = checkSecond && tab !== index ? confirm("Are you sure you want to Switch tabs") : false;
+	if(isSecond){
+		reset();
+		setTab(index)
+	}else if(!checkSecond) {
+		setTab(index);
+	}
+  };
+
+  const reset = () => {
+	  setCheckSecond(0)
+	  setTimeCounter(false);
+	  setSecond(0);
+	  setPomodoro(POMODORO);
+	  setShortBreak(SHORTBREAK);
+	  setLongBreak(LONGBREAK)
+  }
+
+  const timeUp = () => {
+	reset();
+	setIsTimeUp(true);
+	alarmRef.current.play();
+  }
+
   const runTime = () => {
 	  const mins = getTime();
 	  const setMins = updateMinute();
 
 	  if(mins === 0 && second === 0) {
-		  alert('times up');
+		  timeUp();
 	  }else if(second === 0 ){
 		  setMins((min) => min - 1)
 		  setSecond(59);
@@ -48,15 +78,36 @@ export default function Home() {
 	  }
   }
 
-  useEffect(() => {
-	const timer = setInterval(() => {
-		runTime();
-	}, 1000);
+  const startTimer = () => {
+	  setIsTimeUp(false);
+	  muteAlarm();
+	  setTimeCounter((timeCounter) => !timeCounter)
+  }
 
+  const muteAlarm = () => {
+	alarmRef.current.pause();
+	alarmRef.current.currentTime = 0 ;
+  }
+
+  useEffect(() => {
+	window.onbeforeunload = () => {
+		return checkSecond ? "Show warning" : null;
+	}
+
+	const timer = setInterval(() => {
+		if(timeCounter){
+			setCheckSecond((value) => value + 1);
+			runTime();
+		}
+		
+	}, 1000);
+	if (isTimeUp) {
+		clearInterval(timer);
+	}
 	return () => {
 		clearInterval(timer)
 	}
-  },[second, pomodoro, shortBreak, longBreak])
+  },[second, pomodoro, shortBreak, longBreak, timeCounter])
 
   const styles = {
     minScreen: "min-h-screen",
@@ -66,9 +117,10 @@ export default function Home() {
     <div className={`bg-gray-900 ${styles.minScreen} font-inter `}>
       <div className={`max-w-1xl ${styles.minScreen} mx-auto`}>
         <NavBar />
-        <Timer tab={tab} toggle={toggle} getTime={getTime} second={second} timeCounter={timeCounter} setTimeCounter={setTimeCounter}/>
+        <Timer tab={tab} toggle={toggle} getTime={getTime} second={second} timeCounter={timeCounter} startTimer={startTimer} muteAlarm={muteAlarm} isTimeUp={isTimeUp}/>
         <MediaNav />
         <InfoSection />
+		<Alarm alarmRef={alarmRef}/>
       </div>
     </div>
   );

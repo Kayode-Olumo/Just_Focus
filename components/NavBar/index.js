@@ -7,13 +7,13 @@ export const NavBar = () => {
     }
 
     return(
-    <nav className={`pt-5 ${style.textColor} flex justify-between w-11/12 mx-auto`}>
+    <nav className={`pt-5 ${style.textColor} flex justify-between w-9/12 mx-auto`}>
         <div className='flex items-center gap-1 cursor-pointer'>
             <FiCommand className='text-sm' />
             <h1>Just Focus</h1>
             
         </div>
-        <FiSettings className='text-2xl cursor-pointer'/>
+        <FiSettings className='text-3xl cursor-pointer'/>
     </nav>
     );
 }    
