@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavBar } from "../components/NavBar";
-import { Timer } from "../components/Timer";
+import NavBar from "../components/NavBar";
+import Timer from "../components/Timer";
 import { MediaNav } from "../components/MediaNav";
-import { InfoSection } from "../components/InfoSection";
+import InfoSection from "../components/InfoSection";
 import { Alarm } from "../components/Alarm";
-import { SettingsModal } from "../components/SettingsModal";
+import SettingsModal from "../components/SettingsModal";
 
 export default function Home() {
   const [POMODORO, SHORTBREAK, LONGBREAK] = [25, 5, 10];

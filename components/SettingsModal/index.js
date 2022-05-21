@@ -2,7 +2,7 @@ import React from 'react';
 import { FiX } from "react-icons/fi";
 
 
-export const SettingsModal = ({openSetting, setOpenSetting, pomodoroRef, shortBreakRef, longBreakRef, updateTimeDefaultValue}) => {
+function SettingsModal({openSetting, setOpenSetting, pomodoroRef, shortBreakRef, longBreakRef, updateTimeDefaultValue}){
     const option = [
 		{
 			value: "Pomodoro",
@@ -75,3 +75,5 @@ export const SettingsModal = ({openSetting, setOpenSetting, pomodoroRef, shortBr
        </>
     )
 } 
+
+export default React.memo(SettingsModal);

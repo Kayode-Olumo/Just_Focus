@@ -1,7 +1,7 @@
 import React from "react";
 import { FiBellOff } from "react-icons/fi";
 
-export const Timer = ({
+function Timer({
 	tab,
 	getTime,
     toggle,
@@ -11,7 +11,7 @@ export const Timer = ({
 	isTimeUp,
 	muteAlarm,
 	reset,
-}) => {
+}){
 	const options = ["Pomodoro", "Short Break", "Long Break"];
 
 	return (
@@ -69,3 +69,5 @@ export const Timer = ({
 		</div>
 	);
 }
+
+export default React.memo(Timer);

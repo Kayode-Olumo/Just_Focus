@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {FaChevronCircleDown, FaChevronCircleUp} from 'react-icons/fa';
 
-export const InfoSection = () => {
+function InfoSection(){
     const [open, setOpen] = useState(false);
     const [openBio, setOpenBio] = useState(false);
 
@@ -20,7 +20,6 @@ export const InfoSection = () => {
             setOpenBio(false);
         }
     }
-    console.log('test',open);
     return (
         <div className='w-9/12 mx-auto mt-36 text-black p-5'> 
             <div>
@@ -49,3 +48,5 @@ export const InfoSection = () => {
         </div>
     )
 }
+
+export default React.memo(InfoSection);

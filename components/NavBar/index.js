@@ -2,9 +2,9 @@ import React from 'react';
 import {FiCommand, FiSettings} from 'react-icons/fi';
 import {CgProfile} from 'react-icons/cg';
 
-export const NavBar = ({
+function NavBar({
     setOpenSetting
-}) => {
+}){
     const style = {
         textColor: 'text-black'
     }
@@ -21,3 +21,5 @@ export const NavBar = ({
     </nav>
     );
 }    
+
+export default React.memo(NavBar);
