@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import NavBar from "../components/NavBar";
 import Timer from "../components/Timer";
-import { MediaNav } from "../components/MediaNav";
+import MediaNav from "../components/MediaNav";
 import InfoSection from "../components/InfoSection";
 import { Alarm } from "../components/Alarm";
 import SettingsModal from "../components/SettingsModal";
+import { Spotify } from "../components/Spotify";
 
 export default function Home() {
   const [POMODORO, SHORTBREAK, LONGBREAK] = [25, 5, 10];
 
   const [openSetting, setOpenSetting] = useState(false);
+  const [openSpotify, setOpenSpotify] = useState(false);
   const [timeCounter,setTimeCounter] = useState(false);
   const [isTimeUp, setIsTimeUp] = useState(false);
 
@@ -24,6 +26,7 @@ export default function Home() {
   const pomodoroRef = useRef();
   const shortBreakRef = useRef();
   const longBreakRef = useRef();
+  const icon = useRef();
 
   const updateTimeDefaultValue = () => {
 	setPomodoro(pomodoroRef.current.value);
@@ -125,14 +128,20 @@ const toggle = (index) => {
 
   return (
     <div className={`bg-white-900 ${styles.minScreen} font-inter `}>
+		<head>
+			<title>Just Focus</title>
+			<link icon href="../public/favicon.ico"/>
+		</head>
       <div className={`max-w-1xl ${styles.minScreen} mx-auto`}>
+		<Spotify openSpotify={openSpotify} />
         <NavBar setOpenSetting={setOpenSetting} />
         <Timer tab={tab} toggle={toggle} getTime={getTime} second={second} timeCounter={timeCounter} startTimer={startTimer} muteAlarm={muteAlarm} isTimeUp={isTimeUp} reset={reset}/>
-        <MediaNav />
+        <MediaNav setOpenSpotify={setOpenSpotify} />
         <InfoSection />
 		<Alarm alarmRef={alarmRef}/>
 		<SettingsModal pomodoroRef={pomodoroRef} shortBreakRef={shortBreakRef} longBreakRef={longBreakRef} openSetting={openSetting} setOpenSetting={setOpenSetting} updateTimeDefaultValue={updateTimeDefaultValue}/>
       </div>
     </div>
   );
+
 }
