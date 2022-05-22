@@ -1,9 +1,10 @@
 import React from 'react';
 // import {IoMdExit} from 'react-icons/io';
+import SideBar from './components/SideBar';
 
 export const Spotify = ({openSpotify}) => {
     const style = {
-        background: "gray",
+        // background: "gray",
         position: "absolute",
         width: "100%",
         height: "100%",
@@ -13,12 +14,14 @@ export const Spotify = ({openSpotify}) => {
     return (
         <>
         { openSpotify && (
-           <div style={style}>
+           <div style={style} className="bg-black g-screen overflow-hidden">
                <main>
-                   {/* side bar */}
+                   <SideBar />
                    {/* center */}
                </main>
-               {/* player */}
+               <div>
+                    {/* player */}
+               </div>
             </div> 
         )}
         </>
