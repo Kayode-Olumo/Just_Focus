@@ -9,12 +9,12 @@ import {
     PlusCircleIcon
 } from "@heroicons/react/outline";
 
-function SideBar() {
+function SideBar({setOpenSpotify}) {
   return (
     <div className='text-grey-500 p-5 text-sm border-r border-gray-90'>
         <div className='space-y-4'>
-            <button className='flex items-center space-x-2 hover:text-white '>
-                <LogoutIcon className='h-5 w-5'/>
+            <button onClick={() => setOpenSpotify(false)} className='flex items-center space-x-2 hover:text-white '>
+                <LogoutIcon className='h-5 w-5' />
                 <p>Hide player</p>
             </button>
             <button className='flex items-center space-x-2 hover:text-white '>

@@ -133,7 +133,7 @@ const toggle = (index) => {
 			<link icon href="../public/favicon.ico"/>
 		</head>
       <div className={`max-w-1xl ${styles.minScreen} mx-auto`}>
-		<Spotify openSpotify={openSpotify} />
+		<Spotify openSpotify={openSpotify} setOpenSpotify={setOpenSpotify}/>
         <NavBar setOpenSetting={setOpenSetting} />
         <Timer tab={tab} toggle={toggle} getTime={getTime} second={second} timeCounter={timeCounter} startTimer={startTimer} muteAlarm={muteAlarm} isTimeUp={isTimeUp} reset={reset}/>
         <MediaNav setOpenSpotify={setOpenSpotify} />
